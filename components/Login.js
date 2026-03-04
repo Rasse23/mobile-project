@@ -3,9 +3,14 @@ import { StyleSheet, Text, View, Button, Image, TextInput, SafeAreaView } from '
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import { use, useEffect, useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage'; 
+import { signIn } from './FirebaseAuth';
 
 
 export default function Login() {
+
+
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   
 
@@ -20,13 +25,13 @@ export default function Login() {
 
         <MaterialIcons style={{textAlign: 'center', marginBottom: 60}} name="card-travel" size={175} color="blue" />
 
-        <TextInput value={user} onChangeText={setUser} placeholder="Email" style={{marginBottom: 20, textAlign: 'center', fontSize: '15', backgroundColor: "#f06565", borderWidth: 2}}/>
+        <TextInput value={email} onChangeText={setEmail} label="Email" style={{marginBottom: 20, textAlign: 'center', fontSize: '15', backgroundColor: "#f06565", borderWidth: 2}}/>
 
-        <TextInput placeholder="Password" style={{textAlign: 'center', fontSize: '15', backgroundColor: "#f06565", borderWidth: 2 }}/>
+        <TextInput value={password} onChangeText={setPassword} label="Password" style={{textAlign: 'center', fontSize: '15', backgroundColor: "#f06565", borderWidth: 2 }}/>
 
         <View style={{marginTop: 40, justifyContent: 'flex-start', alignItems:'center', backgroundColor: 'blue' }}>
 
-         <Button title="Login" onPress={saveUser} color="white"/>
+         <Button mode="contained" title="Login" onPress={() => signIn(email, password)} color="white"/>
 
         </View>
 
