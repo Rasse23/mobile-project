@@ -1,16 +1,29 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, Button, Image, TextInput, SafeAreaView } from 'react-native';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
+import { Alert } from 'react-native';
 import { use, useEffect, useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage'; 
 import { signIn } from './FirebaseAuth';
 
 
+
 export default function Login() {
 
 
+  const [loginSuccesful, setloginSuccesful] = useState(false);
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
+
+    async function sign() {
+      const error = await signIn(email, password)
+        await signIn(email, password);
+          if (error) {
+              Alert.alert('Login failed', error.message);
+          }
+      }
 
   
 
@@ -21,17 +34,17 @@ export default function Login() {
       <SafeAreaView>
 
         
-        <Text style={{marginBottom: 50, textAlign: 'center', fontSize: '45', fontFamily: 'Al Nile', fontWeight: 'bold'}}>Location App</Text>
+        <Text style={{marginBottom: 50, textAlign: 'center', fontSize: 45, fontFamily: 'Al Nile', fontWeight: 'bold'}}>Location App</Text>
 
         <MaterialIcons style={{textAlign: 'center', marginBottom: 60}} name="card-travel" size={175} color="blue" />
 
-        <TextInput value={email} onChangeText={setEmail} label="Email" style={{marginBottom: 20, textAlign: 'center', fontSize: '15', backgroundColor: "#f06565", borderWidth: 2}}/>
+        <TextInput placeholder='Email' value={email} onChangeText={setEmail} style={{marginBottom: 20, textAlign: 'center', fontSize: 15, backgroundColor: "#f06565", borderWidth: 2}}/>
 
-        <TextInput value={password} onChangeText={setPassword} label="Password" style={{textAlign: 'center', fontSize: '15', backgroundColor: "#f06565", borderWidth: 2 }}/>
+        <TextInput placeholder='Password' secureTextEntry value={password} onChangeText={setPassword}  style={{textAlign: 'center', fontSize: 15, backgroundColor: "#f06565", borderWidth: 2 }}/>
 
         <View style={{marginTop: 40, justifyContent: 'flex-start', alignItems:'center', backgroundColor: 'blue' }}>
 
-         <Button mode="contained" title="Login" onPress={() => signIn(email, password)} color="white"/>
+         <Button title='Login' color="white" onPress={sign}>{'Login'}</Button>
 
         </View>
 
