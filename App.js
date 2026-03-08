@@ -2,6 +2,17 @@ import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, SafeAreaView } from 'react-native';
 import { Button } from 'react-native';
 import Login from './components/Login';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator} from '@react-navigation/native';
+import UserProvider from './components/UserProvider';
+import { useState } from 'react';
+import { createDrawerNavigator } from '@react-navigation/drawer';
+import Home from './components/Home';
+import ViewLocations from './components/ViewLocations';
+import AddLocations from './components/AddLocations';
+
+
+const Drawer = createDrawerNavigator();
 
 export default function App() {
   return (
@@ -9,12 +20,37 @@ export default function App() {
      <View style={styles.container}>
        <Login></Login>
 
+       <UserProvider>
+         <Navigation/>
+
+       </UserProvider>
+
 
        <StatusBar style="auto" />
      </View>
    </SafeAreaView>
   );
 }
+
+
+export function Navigation(){
+
+  return (
+    <NavigationContainer>
+      <Drawer.Navigator>
+       <Drawer.Screen name="Home" component={Home} />
+       <Drawer.Screen name="Add locations" component={AddLocations} />
+       <Drawer.Screen name="View locations" component={ViewLocations} />
+
+      </Drawer.Navigator>
+
+    </NavigationContainer>
+
+  );
+
+};
+
+
 
 const styles = StyleSheet.create({
   container: {

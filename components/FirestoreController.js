@@ -3,6 +3,8 @@ import { createContext, useEffect, useState } from "react";
 import { auth, db, TODO_REF, USERS_REF } from "./FirebaseConfig";
 import { onAuthStateChanged } from "firebase/auth";
 
+const Drawer = createDrawerNavigator();
+
 export const TodoContext = createContext();
 
 export function TodoProvider({ children }) {

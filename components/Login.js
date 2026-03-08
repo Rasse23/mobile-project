@@ -5,24 +5,26 @@ import { Alert } from 'react-native';
 import { use, useEffect, useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage'; 
 import { signIn } from './FirebaseAuth';
+import { Navigation } from '../App';
+import Home from './Home';
+import AddLocations from './AddLocations';
+import ViewLocations from './ViewLocations';
 
 
 
 export default function Login() {
 
 
-  const [loginSuccesful, setloginSuccesful] = useState(false);
-
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
 
     async function sign() {
-      const error = await signIn(email, password)
-        await signIn(email, password);
+      const error = await signIn(email, password);
           if (error) {
               Alert.alert('Login failed', error.message);
           }
+
       }
 
   
