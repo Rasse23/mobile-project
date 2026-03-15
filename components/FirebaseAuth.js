@@ -18,3 +18,33 @@ export async function logout() {
         return error;
     }
 }
+
+export const AuthContext = createContext();
+
+export function AuthProvider({ children }) {
+
+    const [loggedIn, setLoggedIn] = useState(false);
+    const [userdata, setUserData] = useState();
+
+    useEffect(() => {
+
+        const unsubscribe = onAuthStateChanged(auth, (user) => {
+            if (user) {
+                setLoggedIn(true);
+                setUserData(user);
+            } else {
+                setLoggedIn(false);
+                setUserData(null);
+            }
+        });
+
+        return unsubscribe;
+
+    }, []);
+
+    return (
+        <AuthContext.Provider value={{ loggedIn, userdata }}>
+            {children}
+        </AuthContext.Provider>
+    );
+}
