@@ -4,6 +4,8 @@ import { createContext, useEffect, useState } from "react";
 import { doc, onSnapshot, setDoc, updateDoc } from "firebase/firestore";
 
 export async function signIn(email, password) {
+
+
     try {
         await signInWithEmailAndPassword(auth, email, password);
     } catch (error) {
