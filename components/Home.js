@@ -34,20 +34,35 @@ export default function Home() {
 
 
 
-  
-
-  const { userdata } = useContext(AuthContext);
-
-
-
   return (
      <View>
 
       <AntDesign style={{textAlign: 'center', padding: 70}} name="home" size={150} color="#f06565" />
 
-      <Text>Welcome {newuser}</Text>
+      <View style={styles.separator}></View>
+
+      <Text style={{fontSize: 30, textAlign: 'center', padding: 40, fontFamily: 'Al Nile'}}>Welcome {newuser}!</Text>
+
+      <View style={styles.separator}></View>
+
+      <Text style={{fontSize: 16, textAlign: 'center', padding: 40, fontFamily: 'Al Nile'}}>You can start by opening the drawer navigation menu and adding or viewing locations.</Text>
+
+      <View style={{justifyContent: 'flex-start', alignItems:'center', backgroundColor: "#f06565"}}>
+        <Button color="white"  title='Log Out' onPress={logout}></Button>
+
+
+      </View>
 
      </View>
   );
 }
 
+
+const styles = StyleSheet.create({
+  separator: {
+    height: 4,
+    backgroundColor: 'blue',
+    color: 'blue',
+    width: '100%',
+  },
+});
