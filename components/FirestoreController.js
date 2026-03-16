@@ -45,6 +45,8 @@ export async function addLocation(locationText, description, starrating) {
         if (locationText.trim() != '' && uid) {
             await addDoc(collection(db, USERS_REF, uid, TODOS_REF), 
                 { done: false, locationText, description, starrating });
+
+                
         }
     } catch (error) {
         return error;

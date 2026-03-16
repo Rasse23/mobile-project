@@ -5,6 +5,7 @@ import { addLocation, LocationContext } from './FirestoreController';
 import Entypo from '@expo/vector-icons/Entypo';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { logout } from './FirebaseAuth';
+import { Alert } from 'react-native';
 
 
 
@@ -25,6 +26,7 @@ export default function AddLocations() {
     setLocation('');
     setDescription('');
     setstarRating('');
+    Alert.alert('Location added!');
   }
 
 
