@@ -2,7 +2,7 @@ import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, SafeAreaView, Button } from 'react-native';
 import { AuthContext, logout } from './FirebaseAuth';
 import { Login } from './Login';
-import { useContext, useState } from 'react';
+import { useContext, useState, useEffect } from 'react';
 import { signOut } from 'firebase/auth';
 import AntDesign from '@expo/vector-icons/AntDesign';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -23,19 +23,24 @@ export default function Home() {
 
   }
 
+  useEffect(() => {
+    saveUser();
+  } ,  []);
+
+
   async function getUser(){
 
   const getuser = await AsyncStorage.getItem('username');
 
 
 
+ }
 
-  }
 
 
 
   return (
-     <View>
+     <View styles={{flex: 1, width: '100%'}}>
 
       <AntDesign style={{textAlign: 'center', padding: 70}} name="home" size={150} color="#f06565" />
 
@@ -48,7 +53,7 @@ export default function Home() {
       <Text style={{fontSize: 16, textAlign: 'center', padding: 40, fontFamily: 'Al Nile'}}>You can start by opening the drawer navigation menu and adding or viewing locations.</Text>
 
       <View style={{justifyContent: 'flex-start', alignItems:'center', backgroundColor: "#f06565"}}>
-        <Button color="white"  title='Log Out' onPress={logout}></Button>
+        <Button color="white" title='Log Out' onPress={logout}></Button>
 
 
       </View>

@@ -12,7 +12,7 @@ const firebaseConfig = {
   appId: process.env.EXPO_PUBLIC_APP_ID
 };
 
-export const TODO_REF = 'todos';
+export const TODOS_REF = 'locations';
 export const USERS_REF = 'users';
 
 // Initialize Firebase

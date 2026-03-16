@@ -31,7 +31,7 @@ export default function Login() {
 
  return (
 
-    <View style={{width:'100%', flex: 1, justifyContent: 'flex-start', alignItems:'center'}}>
+    <View style={{width:'100%', flex: 1, width: '100%', justifyContent: 'flex-start', alignItems:'center'}}>
 
       <SafeAreaView>
 
@@ -55,6 +55,7 @@ export default function Login() {
     </View>
 
   );
+  
 
 
 }

@@ -1,23 +1,23 @@
 import { addDoc, collection, deleteDoc, doc, getDocs, onSnapshot, updateDoc } from "firebase/firestore";
 import { createContext, useEffect, useState } from "react";
-import { auth, db, TODO_REF, USERS_REF } from "./FirebaseConfig";
+import { auth, db, TODOS_REF, USERS_REF } from "./FirebaseConfig";
 import { onAuthStateChanged } from "firebase/auth";
 
-const Drawer = createDrawerNavigator();
 
-export const TodoContext = createContext();
+export const LocationContext = createContext();
 
-export function TodoProvider({ children }) {
+export function LocationProvider({ children }) {
 
-    const [todos, setTodos] = useState([]);
+    const [locations, setLocations] = useState([]);
+
 
     useEffect(() => {
 
         let unsubscribe;
         onAuthStateChanged(auth, user => {
             if (user) {
-                unsubscribe = onSnapshot(collection(db, USERS_REF, user.uid, TODO_REF ), qSnapshot =>
-                    setTodos(
+                unsubscribe = onSnapshot(collection(db, USERS_REF, user.uid, TODOS_REF ), qSnapshot =>
+                    setLocations(
                         qSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }))
                     )
                 )
@@ -26,58 +26,44 @@ export function TodoProvider({ children }) {
                     unsubscribe();
                 }
                 unsubscribe = null;
-                setTodos([]);
+                setLocations([]);
             }
         });
     }, [])
 
     return (
-        <TodoContext.Provider value={todos}>
+        <LocationContext.Provider value={locations}>
             {children}
-        </TodoContext.Provider>
+        </LocationContext.Provider>
     );
 }
 
 
-export async function addTodo(todoText) {
+export async function addLocation(locationText, description) {
     try {
         let uid = auth?.currentUser?.uid;
-        if (todoText.trim() != '' && uid) {
-            await addDoc(collection(db, USERS_REF, uid, TODO_REF), 
-                { done: false, todoText });
+        if (locationText.trim() != '' && uid) {
+            await addDoc(collection(db, USERS_REF, uid, TODOS_REF), 
+                { done: false, locationText, description });
         }
     } catch (error) {
         return error;
     }
 }
 
-export async function removeTodo(id) {
+
+
+export async function removeLocation(id) {
     try {
-        deleteDoc(doc(db, USERS_REF, auth.currentUser.uid, TODO_REF, id));
+        deleteDoc(doc(db, USERS_REF, auth.currentUser.uid, TODOS_REF, id));
     } catch (error) {
         return error;
     }   
 }
 
-export async function removeAllTodos() {
+export async function updateLocation(id, data) {
     try {
-        let docs = await getDocs(
-            collection(db, USERS_REF, auth.currentUser.uid, TODO_REF)
-        );
-        for (const doc of docs) {
-            const error = await removeTodo(doc.id);
-            if(error){
-                return error;
-            }       
-        }
-    } catch (error) {
-        return error;        
-    }
-}
-
-export async function updateTodo(id, data) {
-    try {
-        await updateDoc(doc(db, USERS_REF, auth.currentUser.uid, TODO_REF, id), data);
+        await updateDoc(doc(db, USERS_REF, auth.currentUser.uid, TODOS_REF, id), data);
     } catch (error) {
         return error;
     }
