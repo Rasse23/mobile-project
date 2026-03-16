@@ -48,7 +48,7 @@ export default function AddLocations() {
 
   async function getUser(){
 
-   const getuser = await AsyncStorage.getItem('username');
+   await AsyncStorage.getItem('username');
 
 
 
