@@ -39,12 +39,12 @@ export function LocationProvider({ children }) {
 }
 
 
-export async function addLocation(locationText, description) {
+export async function addLocation(locationText, description, starrating) {
     try {
         let uid = auth?.currentUser?.uid;
         if (locationText.trim() != '' && uid) {
             await addDoc(collection(db, USERS_REF, uid, TODOS_REF), 
-                { done: false, locationText, description });
+                { done: false, locationText, description, starrating });
         }
     } catch (error) {
         return error;

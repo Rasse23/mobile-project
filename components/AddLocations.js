@@ -4,6 +4,7 @@ import { StyleSheet, Text, View, SafeAreaView, TextInput, Button } from 'react-n
 import { addLocation, LocationContext } from './FirestoreController';
 import Entypo from '@expo/vector-icons/Entypo';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { logout } from './FirebaseAuth';
 
 
 
@@ -15,13 +16,15 @@ export default function AddLocations() {
 
   const [location, setLocation] = useState('');
   const [description, setDescription] = useState('');
+  const [starrating, setstarRating] = useState('');
   const newlocations = useContext(LocationContext)
 
 
   function addLocations2() {
-    addLocation(location, description);
+    addLocation(location, description, starrating);
     setLocation('');
     setDescription('');
+    setstarRating('');
   }
 
 
@@ -63,23 +66,53 @@ export default function AddLocations() {
 
        <View style={styles.separator}></View>
 
+       <Text style={{textAlign: 'center', fontFamily: 'Al Nile', fontSize: 16, fontWeight: 'bold', marginTop: 10 }}>Here you can start adding new locations!</Text>
+
        <TextInput
+         style={{textAlign: 'center', borderColor: '#000',borderWidth: 2, fontFamily: 'Al Nile', fontSize: 12, marginBottom: 15, marginTop: 20}}
+         label='Add location name'
          placeholder='Add location name'
          value={location}
          onChangeText={setLocation}
         />
 
         <TextInput
+         style={{textAlign: 'center', borderColor: '#000',borderWidth: 2, fontFamily: 'Al Nile', fontSize: 12, marginBottom: 15}}
+         label='Add location description'
          placeholder='Add location description'
          value={description}
          onChangeText={setDescription}
         />
 
+
+        <TextInput
+         style={{textAlign: 'center', borderColor: '#000',borderWidth: 2, fontFamily: 'Al Nile', fontSize: 12}}
+         label='Add your star rating as number (1-5)'
+         placeholder='Add star rating as number (1-5)'
+         value={starrating}
+         onChangeText={setstarRating}
+         maxLength={1}
+         keyboardType='number-pad'
+        />
+
+
+
     
         
-    
+      <View style={{}}>
 
-       <Button title='Add location' onPress={addLocations2}></Button>
+       <Button color={'blue'} title='Add location' onPress={addLocations2}></Button>
+
+      </View>
+
+       <View style={styles.separator}></View>
+
+
+       <View style={{justifyContent: 'flex-start', alignItems:'center', backgroundColor: "#f06565", marginTop: 50}}>
+               <Button color="white" title='Log Out' onPress={logout}></Button>
+       
+       
+       </View>
 
 
 
@@ -92,7 +125,7 @@ export default function AddLocations() {
 const styles = StyleSheet.create({
   separator: {
     height: 4,
-    backgroundColor: '#f06565',
+    backgroundColor: 'black',
     color: 'blue',
     width: '100%',
     marginTop: 10
