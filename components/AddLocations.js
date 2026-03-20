@@ -20,6 +20,16 @@ export default function AddLocations() {
   const [starrating, setstarRating] = useState('');
   const newlocations = useContext(LocationContext)
 
+  if (starrating > 5) {
+      Alert.alert('Choose between 0-5 stars') 
+      setstarRating('');
+
+
+  }
+    
+    
+      
+
 
   function addLocations2() {
     addLocation(location, description, starrating);
@@ -27,6 +37,7 @@ export default function AddLocations() {
     setDescription('');
     setstarRating('');
     Alert.alert('Location added!');
+      
   }
 
 

@@ -3,7 +3,6 @@ import { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, SafeAreaView, CheckBox } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { Checkbox, Chip, IconButton, MD3LightTheme } from "react-native-paper";
-import LocationList from './LocationList';
 import { useContext } from 'react';
 import { LocationContext } from './FirestoreController';
 
@@ -11,7 +10,6 @@ import { LocationContext } from './FirestoreController';
 
 export default function ViewLocations({locationitem}) {
 
-  const locations = useContext(LocationContext);
 
   const [showlocation, setshowLocation] = useState(locationitem?.showlocation ?? false)
 
@@ -41,7 +39,9 @@ export default function ViewLocations({locationitem}) {
 
        {locationitem && (
 
-       <Text>{locationitem.locationText} - {locationitem.description} - Rating: {locationitem.starrating}</Text>
+       <Text style={[styles.locationText, {fontSize: 7 }]}>
+         {locationitem.locationText} - {locationitem.description} - Rating: {locationitem.starrating}
+       </Text>
 
        )}
 
