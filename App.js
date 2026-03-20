@@ -11,6 +11,8 @@ import Home from './components/Home';
 import ViewLocations from './components/ViewLocations';
 import AddLocations from './components/AddLocations';
 import { AuthContext, AuthProvider } from './components/FirebaseAuth';
+import { LocationProvider } from './components/FirestoreController';
+import LocationView from './components/LocationView';
 
 
 const Drawer = createDrawerNavigator();
@@ -21,7 +23,9 @@ export default function App() {
      <View style={styles.container}>
 
        <AuthProvider>
-         <Navigation/>
+         <LocationProvider>
+           <Navigation/>
+         </LocationProvider>
 
        </AuthProvider>
 
@@ -43,7 +47,7 @@ export function Navigation(){
         <Drawer.Navigator>
           <Drawer.Screen name='Home' component={Home}/>
           <Drawer.Screen name='Add locations' component={AddLocations}/>
-          <Drawer.Screen name='View locations' component={ViewLocations}/>
+          <Drawer.Screen name='View locations' component={LocationView}/>
         </Drawer.Navigator>
       ) : (
         <Login/>

@@ -3,12 +3,15 @@ import { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, SafeAreaView, CheckBox } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { Checkbox, Chip, IconButton, MD3LightTheme } from "react-native-paper";
+import LocationList from './LocationList';
+import { useContext } from 'react';
+import { LocationContext } from './FirestoreController';
 
 
 
 export default function ViewLocations({locationitem}) {
 
-  const [newuser, savennewUser] = useState('uusiuser');
+  const locations = useContext(LocationContext);
 
   const [showlocation, setshowLocation] = useState(locationitem?.showlocation ?? false)
 
@@ -24,29 +27,6 @@ export default function ViewLocations({locationitem}) {
             : MD3LightTheme.colors.onTertiary
     }
 
-   useEffect(() => {
-      getUser();
-    }, []);
-
-   async function saveUser(){
-
-   await AsyncStorage.setItem("username", newuser)
-
-
-
-  }
-
-
-  async function getUser(){
-
-   await AsyncStorage.getItem('username');
-
-
-
-  }
-
-
-
 
   
 
@@ -56,14 +36,16 @@ export default function ViewLocations({locationitem}) {
 
   return (
      <View>
-       
-       <Ionicons style={{textAlign: 'center', padding: 10}} name="location-outline" size={100} color="black" />
+  
 
-       <Text style={{fontSize: 22, textAlign: 'center', fontFamily: 'Al Nile'}}>Hello {newuser}!</Text>
 
-       <View style={styles.separator}></View>
+       {locationitem && (
 
-       <Text style={{textAlign: 'center', fontFamily: 'Al Nile', fontSize: 16, fontWeight: 'bold', marginTop: 10 }}>Here are list of current locations, you can also delete them if you wish!</Text>
+       <Text>{locationitem.locationText} - {locationitem.description} - Rating: {locationitem.starrating}</Text>
+
+       )}
+
+    
 
 
        <Checkbox
